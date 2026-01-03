@@ -13,8 +13,16 @@
     "dev": "turbo run dev"
   },
   "keywords": [],
-  "author": "",
+  "author": "ai-dev-labs",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ai-dev-labs/wes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ai-dev-labs/wes/issues"
+  },
+  "homepage": "https://github.com/ai-dev-labs/wes#readme",
   "description": "",
   "devDependencies": {
     "@types/node": "^25.0.3",
