@@ -1,0 +1,26 @@
+{
+  "name": "@wes/cli",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "bin": {
+    "wes": "./bin/wes"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ai-dev-labs/wes.git",
+    "directory": "packages/cli"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@wes/sdk": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vitest": "latest"
+  }
+}

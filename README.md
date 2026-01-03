@@ -5,6 +5,7 @@ A TypeScript monorepo managed with Turbo.
 ## Packages
 
 - `sdk`: The core SDK package.
+- `cli`: The CLI for wes.
 
 ## Development
 
