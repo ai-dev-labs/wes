@@ -14,7 +14,7 @@
   },
   "keywords": [],
   "author": "ai-dev-labs",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ai-dev-labs/wes.git"
