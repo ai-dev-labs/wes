@@ -1,5 +1,5 @@
 {
-  "name": "wes",
+  "name": "@ai-dev-labs/wes-monorepo",
   "version": "1.0.0",
   "packageManager": "npm@10.2.4",
   "main": "index.js",

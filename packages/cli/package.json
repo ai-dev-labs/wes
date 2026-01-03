@@ -1,5 +1,5 @@
 {
-  "name": "@wes/cli",
+  "name": "@ai-dev-labs/wes",
   "version": "0.1.0",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -17,7 +17,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@wes/sdk": "*"
+    "@ai-dev-labs/wes-sdk": "*"
   },
   "devDependencies": {
     "typescript": "^5.0.0",
