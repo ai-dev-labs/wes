@@ -32,3 +32,4 @@ Thumbs.db
 
 # Gemini
 .gemini/
+logs/
