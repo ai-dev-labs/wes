@@ -1,6 +1,6 @@
-import { Message, Role, ContentBlock } from './types';
+import { Message, Role, ContentBlock } from './types/index';
 
-export * from './types';
+export * from './types/index';
 
 export function createMessage(
   role: Role,
