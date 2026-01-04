@@ -8,14 +8,21 @@ import {
 
 export type Role = 'system' | 'user' | 'assistant' | 'tool';
 
+export interface ReasoningPart {
+  type: 'reasoning';
+  text: string;
+}
+
 export type ContentBlock =
   | TextPart
   | ImagePart
   | FilePart
   | ToolCallPart
-  | ToolResultPart;
+  | ToolResultPart
+  | ReasoningPart;
 
 export interface Message {
+  id: string;
   role: Role;
   content: string | ContentBlock[];
 }
@@ -38,7 +45,7 @@ export type EventType =
   | 'agent.tool.call.stop'
   | 'agent.tool.result';
 
-export interface WesEvent {
+export interface Event {
   type: EventType;
   payload: unknown;
   timestamp: number;
