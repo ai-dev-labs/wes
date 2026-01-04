@@ -1,36 +1,50 @@
 # Agent Guidelines
 
-## Available Tools & SDK Capabilities
-
-The `@ai-dev-labs/wes-sdk` package provides the following core capabilities for building agents. These types and classes align with the `ai-sdk` (Core) standards.
-
-### Core Types (`@ai-dev-labs/wes-sdk`)
-
-- **Message**: The fundamental unit of communication.
-  - **Structure**: Class implementing `Message` interface.
-  - **Fields**: 
-    - `id`: `string` (UUID, auto-generated on instantiation).
-    - `role`: `'system' | 'user' | 'assistant'`.
-    - `content`: `ContentBlock[]` (Strictly typed array).
-  - **Usage**: `const msg = new Message('user', 'Hello');`
-
-- **ContentBlock**: A discriminated union of supported content parts.
-  - **TextPart**: `{ type: 'text', text: string }`
-  - **ImagePart**: `{ type: 'image', image: DataContent | URL, mediaType?: string }`
-  - **FilePart** (Documents): `{ type: 'file', data: DataContent | URL, mediaType: string }`
-  - **ToolCallPart**: `{ type: 'tool-call', toolCallId: string, toolName: string, args: unknown }`
-  - **ToolResultPart**: `{ type: 'tool-result', toolCallId: string, toolName: string, output: unknown, isError?: boolean }`
-  - **ReasoningPart**: `{ type: 'reasoning', text: string }`
-
-- **Tool**: Interface for defining executable tools.
-  - **Fields**: `name`, `description`, `parameters` (Schema), `execute` (Function).
-
-- **Event**: Standardized event structure for agent lifecycle hooks.
-  - **Events**: `agent.generate.start`, `agent.message.start`, `agent.tool.call.start`, etc.
-
-- **ConversationManager**: Interface for managing message history.
-
 ## Operational Guidelines
 
 ### 1. Code Push Restrictions
 **CRITICAL:** Agents operating within this repository must **NOT** push any code changes to the upstream remote repository unless explicitly and directly asked to do so by the user. All git operations should be local (commits) until a specific `push` instruction is received.
+
+## Development Workflow
+
+This repository is a **TypeScript Monorepo** managed with **npm workspaces** and **Turbo**.
+
+### Build System
+- **Build All**: `npm run build` (Runs `turbo run build`)
+- **Build Specific Package**: `turbo run build --filter=<package_name>`
+  - Example: `turbo run build --filter=@ai-dev-labs/wes-sdk`
+
+### Testing
+- **Run All Tests**: `npm run test` (Runs `turbo run test`)
+- **Run Specific Package**: 
+  - `npm test -w <package_name>` 
+  - OR `turbo run test --filter=<package_name>`
+
+### Dependency Management
+- **Install Root Dev Dependency**: `npm install <package> -D`
+- **Install Package Dependency**: `npm install <package> -w <package_name>`
+  - **Important:** Always use the workspace flag `-w` when adding dependencies to specific packages.
+  - Example: `npm install ai -w @ai-dev-labs/wes-sdk`
+
+### Project Structure
+- **Root**: Configuration files (`package.json`, `turbo.json`, `tsconfig.json`).
+- **`packages/sdk`** (`@ai-dev-labs/wes-sdk`): The core library containing types (`Message`, `Tool`, `Event`) and logic.
+- **`packages/cli`** (`@ai-dev-labs/wes`): The command-line interface.
+
+## SDK Capabilities Reference
+
+The `@ai-dev-labs/wes-sdk` package provides the following core capabilities:
+
+### Core Types (`packages/sdk/src/types/`)
+
+- **Message** (`message.ts`): 
+  - Class implementing `Message` interface.
+  - Usage: `new Message('user', 'Hello')` (Auto-generates UUID).
+  - Content is strictly `ContentBlock[]`.
+
+- **ContentBlock** (`message.ts`):
+  - `TextPart`, `ImagePart`, `FilePart` (Documents), `ToolCallPart`, `ToolResultPart`, `ReasoningPart`.
+  - Imported from `ai` package where possible for compatibility.
+
+- **Tool** (`tool.ts`): Interface for defining executable tools.
+- **Event** (`event.ts`): Standardized event structure (`agent.generate.start`, etc.).
