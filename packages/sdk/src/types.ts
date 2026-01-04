@@ -19,26 +19,26 @@ export interface FilePart {
   mediaType: string;
 }
 
-export type ContentBlock = TextPart | ImagePart | FilePart;
-
-export interface ToolCall {
+export interface ToolCallPart {
+  type: 'tool-call';
   toolCallId: string;
   toolName: string;
   args: unknown;
 }
 
-export interface ToolResult {
+export interface ToolResultPart {
+  type: 'tool-result';
   toolCallId: string;
   toolName: string;
   output: unknown;
   isError?: boolean;
 }
 
+export type ContentBlock = TextPart | ImagePart | FilePart | ToolCallPart | ToolResultPart;
+
 export interface Message {
   role: Role;
   content: string | ContentBlock[];
-  toolCalls?: ToolCall[];
-  toolResults?: ToolResult[];
 }
 
 export interface Tool {
