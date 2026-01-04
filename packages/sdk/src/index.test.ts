@@ -1,6 +1,16 @@
 import { expect, test } from 'vitest';
-import { add } from './index';
+import { createMessage } from './index';
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(add(1, 2)).toBe(3);
+test('createMessage generates uuid', () => {
+  const message = createMessage('user', 'hello');
+  expect(message.id).toBeDefined();
+  expect(typeof message.id).toBe('string');
+  expect(message.role).toBe('user');
+  expect(message.content).toBe('hello');
+});
+
+test('createMessage uses provided id', () => {
+  const id = '123';
+  const message = createMessage('user', 'hello', id);
+  expect(message.id).toBe(id);
 });
