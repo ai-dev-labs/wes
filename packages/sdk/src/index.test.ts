@@ -1,12 +1,12 @@
 import { expect, test } from 'vitest';
 import { createMessage } from './index';
 
-test('createMessage generates uuid', () => {
+test('createMessage generates uuid and normalizes content', () => {
   const message = createMessage('user', 'hello');
   expect(message.id).toBeDefined();
   expect(typeof message.id).toBe('string');
   expect(message.role).toBe('user');
-  expect(message.content).toBe('hello');
+  expect(message.content).toEqual([{ type: 'text', text: 'hello' }]);
 });
 
 test('createMessage uses provided id', () => {

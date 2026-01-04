@@ -24,7 +24,7 @@ export type ContentBlock =
 export interface Message {
   id: string;
   role: Role;
-  content: string | ContentBlock[];
+  content: ContentBlock[];
 }
 
 export interface Tool {
