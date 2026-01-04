@@ -1,6 +1,8 @@
 import { LanguageModel } from 'ai';
 import { Event } from '../types/event';
 import { Tool } from '../types/tool';
+import { Message } from '../types/message';
+import { ConversationManager } from '../types/conversation';
 
 export interface AgentGenerateOptions {
   signal?: AbortSignal;
@@ -42,6 +44,16 @@ export interface Agent {
    * List of tools available to the agent.
    */
   tools?: Tool[];
+
+  /**
+   * The current conversation history.
+   */
+  conversation?: Message[];
+
+  /**
+   * The conversation manager responsible for handling message history.
+   */
+  conversationManager?: ConversationManager;
 
   /**
    * Generates a response stream based on the provided prompt.
