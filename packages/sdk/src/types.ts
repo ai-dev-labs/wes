@@ -6,7 +6,7 @@ import {
   ToolResultPart,
 } from 'ai';
 
-export type Role = 'system' | 'user' | 'assistant' | 'tool';
+export type Role = 'system' | 'user' | 'assistant';
 
 export interface ReasoningPart {
   type: 'reasoning';
