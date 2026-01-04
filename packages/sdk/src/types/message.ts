@@ -21,10 +21,16 @@ export type ContentBlock =
   | ToolResultPart
   | ReasoningPart;
 
-export interface Message {
+export class Message {
   id: string;
   role: Role;
   content: ContentBlock[];
+
+  constructor(role: Role, content: string | ContentBlock[], id?: string) {
+    this.id = id || crypto.randomUUID();
+    this.role = role;
+    this.content = typeof content === 'string' ? [{ type: 'text', text: content }] : content;
+  }
 }
 
 export {
