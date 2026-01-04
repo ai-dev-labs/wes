@@ -1,55 +1,51 @@
-export interface TextContent {
+export type Role = 'system' | 'user' | 'assistant' | 'tool';
+
+export type DataContent = string | Uint8Array | ArrayBuffer | Buffer;
+
+export interface TextPart {
   type: 'text';
   text: string;
 }
 
-export interface ImageContent {
+export interface ImagePart {
   type: 'image';
-  source: {
-    type: 'base64';
-    media_type: string;
-    data: string;
-  };
+  image: DataContent | URL;
+  mediaType?: string;
 }
 
-export interface DocumentContent {
-  type: 'document';
-  source: {
-    type: 'base64';
-    media_type: string;
-    data: string;
-  };
+export interface FilePart {
+  type: 'file';
+  data: DataContent | URL;
+  mediaType: string;
 }
 
-export type ContentBlock = TextContent | ImageContent | DocumentContent;
-
-export interface Message {
-  role: 'system' | 'user' | 'assistant' | 'tool';
-  content: string | ContentBlock[];
-  name?: string;
-  tool_call_id?: string;
-  tool_calls?: ToolCall[];
-}
+export type ContentBlock = TextPart | ImagePart | FilePart;
 
 export interface ToolCall {
-  id: string;
-  type: 'function';
-  function: {
-    name: string;
-    arguments: string;
-  };
+  toolCallId: string;
+  toolName: string;
+  args: unknown;
 }
 
 export interface ToolResult {
-  tool_call_id: string;
-  output: string;
+  toolCallId: string;
+  toolName: string;
+  output: unknown;
+  isError?: boolean;
+}
+
+export interface Message {
+  role: Role;
+  content: string | ContentBlock[];
+  toolCalls?: ToolCall[];
+  toolResults?: ToolResult[];
 }
 
 export interface Tool {
   name: string;
   description: string;
   parameters: Record<string, unknown>;
-  execute: (args: Record<string, unknown>) => Promise<string>;
+  execute: (args: any) => Promise<any>;
 }
 
 export type EventType =
