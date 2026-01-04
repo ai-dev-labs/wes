@@ -1,40 +1,19 @@
+import {
+  TextPart,
+  ImagePart,
+  FilePart,
+  ToolCallPart,
+  ToolResultPart,
+} from 'ai';
+
 export type Role = 'system' | 'user' | 'assistant' | 'tool';
 
-export type DataContent = string | Uint8Array | ArrayBuffer | Buffer;
-
-export interface TextPart {
-  type: 'text';
-  text: string;
-}
-
-export interface ImagePart {
-  type: 'image';
-  image: DataContent | URL;
-  mediaType?: string;
-}
-
-export interface FilePart {
-  type: 'file';
-  data: DataContent | URL;
-  mediaType: string;
-}
-
-export interface ToolCallPart {
-  type: 'tool-call';
-  toolCallId: string;
-  toolName: string;
-  args: unknown;
-}
-
-export interface ToolResultPart {
-  type: 'tool-result';
-  toolCallId: string;
-  toolName: string;
-  output: unknown;
-  isError?: boolean;
-}
-
-export type ContentBlock = TextPart | ImagePart | FilePart | ToolCallPart | ToolResultPart;
+export type ContentBlock =
+  | TextPart
+  | ImagePart
+  | FilePart
+  | ToolCallPart
+  | ToolResultPart;
 
 export interface Message {
   role: Role;
@@ -70,3 +49,5 @@ export interface ConversationManager {
   getHistory(): Message[];
   clear(): void;
 }
+
+export { TextPart, ImagePart, FilePart, ToolCallPart, ToolResultPart };
